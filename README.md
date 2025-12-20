@@ -1,135 +1,66 @@
-# Turborepo starter
+# YChat
 
-This Turborepo starter is maintained by the Turborepo core team.
+> Chat application built as a school project, focusing on real-time communication and basic client–server interaction.
 
-## Using this example
+- [Prerequisites](#Prerequisites)
+- [Dependencies](#Dependencies)
+- [Installation](#Installation)
+- [Configuration](#Configuration)
+- [License](#License)
 
-Run the following command:
+## Prerequisites
 
-```sh
-npx create-turbo@latest
-```
+- Node.js 20+ ([Download](https://nodejs.org/en/download/))
+- Container runtime ([Docker (recommended)](https://www.docker.com/), Colima, ...)
+- IDE ([VS Code](https://code.visualstudio.com/), WebStorm, ...)
+- Package manager ([pnpm (recommended)](https://pnpm.io/installation), npm, ...)
 
-## What's inside?
+## Dependencies
 
-This Turborepo includes the following packages/apps:
+- **Database** _(started automatically via `docker compose` during installation)_
+  - Postgres
 
-### Apps and Packages
+## Installation
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+1. Go to the project root: `cd ychat/`
+2. Install all dependencies: `pnpm install`
+3. Copy `.env.example` to `.env` in the project root (Docker infrastructure)
+   and in all applications (`apps/*`), then adjust the values accordingly.
+4. Start required services: `docker compose up -d`
+5. **First run only:** Apply database migrations, generate Prisma client, and seed the database: `docker compose exec ychat-api npx prisma migrate deploy && docker compose exec ychat-api npx prisma db seed`
+6. Start the application: `pnpm run dev --filter app`
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+> Note: The desktop Electron application runs locally and connects to backend services running in Docker.
 
-### Utilities
+## Configuration
 
-This Turborepo has some additional tools already setup for you:
+> Application
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+| Description       | Values                 |
+| ----------------- | ---------------------- |
+| **Ports:**        | 5173                   |
+| **Technologies:** | Electron-Vite          |
+| **URL:**          | http://localhost:5173/ |
 
-### Build
+> Server
 
-To build all apps and packages, run the following command:
+| Description       | Values                        |
+| ----------------- | ----------------------------- |
+| **Ports:**        | 4000                          |
+| **Technologies:** | NestJS, Prisma                |
+| **URL:**          | http://localhost:4000/        |
+| **Swagger:**      | http://localhost:4000/swagger |
 
-```
-cd my-turborepo
+> Database
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+| Description       | Values                             |
+| ----------------- | ---------------------------------- |
+| **Ports:**        | 5432                               |
+| **Technologies:** | Postgres                           |
+| **Databases:**    | postgres                           |
+| **Credentials:**  | `root:password` (development only) |
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+## License
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+> This software is developed by **Petr Kašpar** and is licensed under the MIT License.  
+> For more details, please refer to the LICENSE file.

@@ -1,0 +1,5 @@
+dist-electron
+.prettierignore
+.stylelintignore
+coverage
+node_modules
