@@ -63,4 +63,4 @@
 ## License
 
 > This software is developed by **Petr Kašpar** and is licensed under the MIT License.  
-> For more details, please refer to the LICENSE file.
+> For more details, please refer to the [LICENSE file](LICENSE).
