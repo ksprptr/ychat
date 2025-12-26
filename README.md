@@ -2,11 +2,18 @@
 
 > Chat application built as a school project, focusing on real-time communication and basic client–server interaction.
 
+- [Project scope](#Project-scope)
 - [Prerequisites](#Prerequisites)
 - [Dependencies](#Dependencies)
 - [Installation](#Installation)
+- [Run](#Run)
 - [Configuration](#Configuration)
 - [License](#License)
+
+## Project scope
+
+> This project was created for educational purposes only and contains intentional architectural and implementation simplifications.  
+> Certain patterns and decisions are not production-ready and are used solely to keep the scope appropriate for a school project.
 
 ## Prerequisites
 
@@ -29,8 +36,15 @@
 4. Start required services: `docker compose up -d`
 5. **First run only:** Apply database migrations, generate Prisma client, and seed the database: `docker compose exec ychat-api npx prisma migrate deploy && docker compose exec ychat-api npx prisma db seed`
 6. Start the application: `pnpm run dev --filter app`
+7. Log in using the credentials (defined in the seed script; the password is stored in environment variables):
+   - Username: `john_doe` | `jane_doe` | `alice_smith`
+   - Password: `<PRISMA_SEED_EXAMPLE_PASSWORD from .env file>`
 
 > Note: The desktop Electron application runs locally and connects to backend services running in Docker.
+
+## Run
+
+- Development: `docker compose up -d ychat-pg && pnpm run dev`
 
 ## Configuration
 
