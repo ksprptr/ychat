@@ -56,6 +56,14 @@
 | **Technologies:** | Electron-Vite          |
 | **URL:**          | http://localhost:5173/ |
 
+> Web
+
+| Description       | Values                 |
+| ----------------- | ---------------------- |
+| **Ports:**        | 3000                   |
+| **Technologies:** | Next.js                |
+| **URL:**          | http://localhost:3000/ |
+
 > Server
 
 | Description       | Values                        |
