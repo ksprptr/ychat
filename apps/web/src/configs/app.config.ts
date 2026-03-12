@@ -1,33 +1,36 @@
 import { MetadataConfig } from '@/common/types/metadata.types';
 import { getEnvString } from '@/common/utils/env.functions';
 
-import nextConfig from '../../next.config';
-
-// Is production environment?
-export const isProduction = getEnvString('NODE_ENV') === 'production';
-
-// Allowed cdn hosts
-export const allowedCdnHosts: string[] =
-  nextConfig.images?.remotePatterns?.map((pattern) => pattern.hostname) || ([] as string[]);
-
 /**
  * Web metadata configuration
  */
 export const metadataConfig: MetadataConfig = {
-  title: '',
-  shortTitle: '',
-  description: '',
-  keywords: [],
+  title: 'yChat - Simple, Fast, and Easy Communication',
+  shortTitle: 'yChat',
+  description:
+    'yChat is a simple and modern chat application designed for fast and reliable communication. The project focuses on providing an intuitive user experience while using modern technologies and development principles.',
+  keywords: [
+    'yChat',
+    'chat application',
+    'real-time communication',
+    'modern web app',
+    'simple chat',
+    'fast messaging',
+    'reliable communication',
+    'intuitive user experience',
+    'modern technologies',
+    'development principles',
+  ],
   colors: {
-    background: '#000000',
-    theme: '#000000',
+    background: '#fafafa',
+    theme: '#fafafa',
   },
 };
 
 /**
  * Function to get the environment url based on the environment
  */
-export const getEnvUrl = (type: 'app' | 'api'): string => {
+export const getEnvUrl = (type: 'app'): string => {
   const requireEnv = (varName: string) => {
     const value = getEnvString(varName);
 
@@ -41,7 +44,5 @@ export const getEnvUrl = (type: 'app' | 'api'): string => {
   switch (type) {
     case 'app':
       return requireEnv('NEXT_PUBLIC_APP_URL');
-    case 'api':
-      return requireEnv('NEXT_PUBLIC_API_URL');
   }
 };
