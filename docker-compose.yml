@@ -29,6 +29,18 @@ services:
       - ychat-pg
     networks:
       - default
+  ychat-web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: ychat-web
+    restart: unless-stopped
+    env_file:
+      - ./apps/web/.env
+    ports:
+      - "${WEB_PORT}:3000"
+    networks:
+      - default
 
 volumes:
   ychat_pgdata:

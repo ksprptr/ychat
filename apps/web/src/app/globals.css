@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
+  a,
+  svg,
+  img,
+  link,
+  input,
+  label,
+  select,
+  button,
+  textarea {
+    @apply select-none;
+  }
+
+  link,
+  button {
+    @apply hover:cursor-pointer;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-1 w-1 bg-white;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-lime-500;
+  }
+}
